@@ -21,6 +21,5 @@ public class Library {
         System.out.println(book1.pages);
         System.out.println(book1.publishisher);
         System.out.println(book1.isbn);
-        System.out.println("ZIOM");
     }
 }
