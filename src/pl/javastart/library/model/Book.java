@@ -1,32 +1,18 @@
 package pl.javastart.library.model;
 
-public class Book {
-    private String title;
+import java.util.Objects;
+
+public class Book extends Publication {
     private String author;
-    private int releaseDate;
     private int pages;
-    private String publishisher;
     private String isbn;
 
-    public Book(String title, String author, int releaseDate, int pages, String publishisher, String isbn) {
-        this(title, author, releaseDate, pages, publishisher);
-        this.isbn = isbn;
-    }
 
-    public Book(String title, String author, int releaseDate, int pages, String publishisher) {
-        this.title = title;
+    public Book(String title, String author, int year, int pages, String publisher, String isbn) {
+        super(title, publisher, year);
         this.author = author;
-        this.releaseDate = releaseDate;
         this.pages = pages;
-        this.publishisher = publishisher;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
+        this.isbn = isbn;
     }
 
     public String getAuthor() {
@@ -37,28 +23,12 @@ public class Book {
         this.author = author;
     }
 
-    public int getReleaseDate() {
-        return releaseDate;
-    }
-
-    public void setReleaseDate(int releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
     public int getPages() {
         return pages;
     }
 
     public void setPages(int pages) {
         this.pages = pages;
-    }
-
-    public String getPublishisher() {
-        return publishisher;
-    }
-
-    public void setPublishisher(String publishisher) {
-        this.publishisher = publishisher;
     }
 
     public String getIsbn() {
@@ -69,12 +39,24 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public void printInfo() {
-        String info = this.title + "; " + this.author + "; " + this.releaseDate + "; " + this.pages + "; " + this.publishisher;
-        if (isbn != null) {
-            info += "; " + isbn;
-        }
-        System.out.println(info);
+    @Override
+    public java.lang.String toString() {
+        return super.toString() + "; " + author + "; " + pages + "; " + isbn;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Book book = (Book) o;
+        return pages == book.pages &&
+                Objects.equals(author, book.author) &&
+                Objects.equals(isbn, book.isbn);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), author, pages, isbn);
+    }
 }
